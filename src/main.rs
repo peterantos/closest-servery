@@ -1,4 +1,5 @@
 use std::process::Command;
+use gooey::{self, widget::MakeWidget, Run};
 
 struct Location <'a> {
     name:&'a str,
@@ -24,7 +25,7 @@ impl <'a> Location <'a> {
     }
 }
 
-fn main() {
+fn main() ->gooey::Result {
    let my_location = Location{
     name:"Me",
     lat:get_geodata()[0],
@@ -39,7 +40,7 @@ fn main() {
     Location {name: "Seibel", lat: 29.721119919804234, long: -95.39838953823505,},
     ];
 
-    println!("{}",(my_location.closest_place(&servery_list)).name)
+    my_location.closest_place(&servery_list).name.centered().run()
 }
 
 fn get_geodata() -> [f64;2] {
